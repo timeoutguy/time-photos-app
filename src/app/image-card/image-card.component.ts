@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { octPencil, octTrash } from '@ng-icons/octicons';
+import { octCopy, octPencil, octTrash } from '@ng-icons/octicons';
 
 @Component({
   selector: 'app-image-card',
@@ -8,7 +8,7 @@ import { octPencil, octTrash } from '@ng-icons/octicons';
   imports: [NgIcon],
   templateUrl: './image-card.component.html',
   styleUrl: './image-card.component.scss',
-  providers: [provideIcons({ octPencil, octTrash})]
+  providers: [provideIcons({ octPencil, octTrash, octCopy})]
 })
 export class ImageCardComponent {
 
