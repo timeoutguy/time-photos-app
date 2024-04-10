@@ -3,7 +3,12 @@
     <a class="btn btn-ghost text-xl" routerLink="/">Time Photos</a>
   </div>
   <div class="flex-none">
-    <div class="flex gap-2">
+    <div class="flex items-center gap-2">
+      <label class="swap swap-rotate mr-2 text-2xl">
+        <input type="checkbox" class="theme-controller" value="night" />
+        <ng-icon name="octMoon" class="swap-off"/>
+        <ng-icon name="octSun" class="swap-on" />
+      </label>
       <button class="btn btn-primary" routerLink="login"> Login </button>
       <button class="btn btn-secondary" routerLink="register"> Register </button>
     </div>

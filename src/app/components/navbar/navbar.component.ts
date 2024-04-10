@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { octUpload } from '@ng-icons/octicons';
+import { octMoon, octSun, octUpload } from '@ng-icons/octicons';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +9,7 @@ import { octUpload } from '@ng-icons/octicons';
   imports: [NgIconComponent, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  providers: [provideIcons({ octUpload })],
+  providers: [provideIcons({ octUpload, octMoon, octSun })],
 })
 export class NavbarComponent {
 
