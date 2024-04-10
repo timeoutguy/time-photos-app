@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { bootstrapGoogle } from '@ng-icons/bootstrap-icons';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgIcon],
+  imports: [NgIcon, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: [provideIcons({ bootstrapGoogle})]
