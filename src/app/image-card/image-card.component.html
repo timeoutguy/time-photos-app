@@ -16,7 +16,7 @@
         <div class="badge badge-secondary">NEW</div>
       </div>
       <div>
-        <button class="btn btn-sm btn-circle btn-primary mr-2">
+        <button class="btn btn-sm btn-circle btn-primary mr-2" (click)="openEditModal()">
           <ng-icon name="octPencil" />
         </button>
         <button class="btn btn-sm btn-circle btn-error">
@@ -37,4 +37,42 @@
       </div>
     </div>
   </div>
+  <dialog #editModal class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Edit image</h3>
+      <form class="">
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text">Name</span>
+          </div>
+
+          <input class="input input-bordered" />
+        </label>
+        <label class="form-control mb-4">
+          <div class="label">
+            <span class="label-text">Categories</span>
+          </div>
+          <div class="flex gap-1">
+            <div class="badge badge-outline mr-1 cursor-pointer">
+              <div class="w-2 h-2 bg-primary rounded-full mr-1">
+              </div>
+              Fashion
+            </div>
+            <div class="badge badge-neutral mr-1 cursor-pointer">
+              <div class="w-2 h-2 bg-primary rounded-full mr-1">
+              </div>
+              Teste
+            </div>
+          </div>
+        </label>
+        <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
+      </form>
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn mr-2">Close</button>
+          <button class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </div>

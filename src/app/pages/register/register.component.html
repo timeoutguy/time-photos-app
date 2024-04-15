@@ -13,41 +13,78 @@
     </a>
 
     <div class="divider my-0">OR</div>
+    <form [formGroup]="registerFormGroup">
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Email</span>
+        </div>
 
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Email</span>
-      </div>
-
-      <input class="input input-bordered" />
-    </label>
-
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Password</span>
-      </div>
-
-      <input type="password" class="input input-bordered" />
-    </label>
-
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Confirm password</span>
-      </div>
-
-      <input type="password" class="input input-bordered" />
-    </label>
-
-    <div class="form-control">
-      <label class="cursor-pointer label self-start gap-2">
-        <input type="checkbox" class="checkbox" />
-        <span class="label-text">
-          I accept the
-          <a class="link link-accent">Terms and Conditions</a>
-        </span>
+        <input
+          formControlName="email"
+          class="input input-bordered"
+          [class.input-error]="registerFormGroup.get('email')?.invalid && registerFormGroup.get('email')?.touched"
+        />
+        @if (registerFormGroup.get('email')?.invalid && registerFormGroup.get('email')?.touched) {
+          @if (registerFormGroup.get('email')?.hasError('required')) {
+            <div>
+              <span class="label-text-alt mt-2 text-error"> Email is required </span>
+            </div>
+          }
+          @if (registerFormGroup.get('email')?.hasError('email')) {
+            <div>
+              <span class="label-text-alt mt-2 text-error"> Email is invalid </span>
+            </div>
+          }
+        }
       </label>
-    </div>
 
-    <button class="btn btn-primary">Create</button>
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Password</span>
+        </div>
+
+        <input
+          formControlName="password"
+          type="password"
+          class="input input-bordered"
+          [class.input-error]="registerFormGroup.get('password')?.hasError('required') && registerFormGroup.get('password')?.touched"
+        />
+        @if (registerFormGroup.get('password')?.invalid && registerFormGroup.get('password')?.touched) {
+          @if (registerFormGroup.get('password')?.hasError('required')) {
+            <div>
+              <span class="label-text-alt mt-2 text-error"> Password is required </span>
+            </div>
+          }
+        }
+      </label>
+
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Confirm password</span>
+        </div>
+
+        <input formControlName="confirmPassword" type="password" class="input input-bordered" [class.input-error]="registerFormGroup.hasError('samePassword') && registerFormGroup.get('confirmPassword')?.touched" />
+        @if (registerFormGroup.hasError('samePassword') && registerFormGroup.get('confirmPassword')?.touched) {
+          <div>
+            <span class="label-text mt-2 text-error">
+              Passwords do not match
+            </span>
+          </div>
+        }
+      </label>
+
+      <div class="form-control">
+        <label class="cursor-pointer label self-start gap-2">
+          <input formControlName="terms" type="checkbox" class="checkbox" />
+          <span class="label-text">
+            I accept the
+            <a class="link link-accent">Terms and Conditions</a>
+          </span>
+        </label>
+      </div>
+    </form>
+
+
+    <button class="btn btn-primary" [disabled]="registerFormGroup.invalid">Create</button>
   </div>
 </main>
