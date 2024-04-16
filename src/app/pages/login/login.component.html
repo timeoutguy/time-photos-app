@@ -7,37 +7,45 @@
       <a class="link link-secondary" routerLink="/register">Register</a>
     </span>
 
-    <a class="btn btn-neutral">
+    <!-- <a class="btn btn-neutral">
       <ng-icon name="bootstrapGoogle" />
       Log in with Google
     </a>
 
-    <div class="divider">OR</div>
+    <div class="divider">OR</div> -->
 
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Email</span>
-      </div>
+    <form [formGroup]="loginFormGroup">
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Email</span>
+        </div>
 
-      <input class="input input-bordered" />
-    </label>
-
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Password</span>
-        <a class="label-text link link-accent">Forgot password?</a>
-      </div>
-
-      <input type="password" class="input input-bordered" />
-    </label>
-
-    <div class="form-control">
-      <label class="cursor-pointer label self-start gap-2">
-        <input type="checkbox" class="checkbox" />
-        <span class="label-text">Remember me</span>
+        <input formControlName="email" class="input input-bordered" />
       </label>
-    </div>
 
-    <button class="btn btn-primary">Log in</button>
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Password</span>
+          <a class="label-text link link-accent">Forgot password?</a>
+        </div>
+
+        <input formControlName="password" type="password" class="input input-bordered" />
+      </label>
+
+      <div class="form-control">
+        <label class="cursor-pointer label self-start gap-2">
+          <input type="checkbox" class="checkbox" />
+          <span class="label-text">Remember me</span>
+        </label>
+      </div>
+    </form>
+
+    <button class="btn btn-primary" (click)="login()">
+      @if (isLoading) {
+        <span class="loading"></span>
+      } @else {
+        Log in
+      }
+    </button>
   </div>
 </main>

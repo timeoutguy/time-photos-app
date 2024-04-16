@@ -7,13 +7,32 @@
       <a class="link link-secondary" routerLink="/login">Log in</a>
     </span>
 
-    <a class="btn btn-neutral">
+    <!-- <a class="btn btn-neutral">
       <ng-icon name="bootstrapGoogle" />
       Create with Google
     </a>
 
-    <div class="divider my-0">OR</div>
+    <div class="divider my-0">OR</div> -->
     <form [formGroup]="registerFormGroup">
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Name</span>
+        </div>
+
+        <input
+          formControlName="name"
+          class="input input-bordered"
+          [class.input-error]="registerFormGroup.get('name')?.invalid && registerFormGroup.get('name')?.touched"
+        />
+        @if (registerFormGroup.get('name')?.invalid && registerFormGroup.get('name')?.touched) {
+          @if (registerFormGroup.get('name')?.hasError('required')) {
+            <div>
+              <span class="label-text-alt mt-2 text-error"> Name is required </span>
+            </div>
+          }
+        }
+      </label>
+
       <label class="form-control">
         <div class="label">
           <span class="label-text">Email</span>
@@ -55,6 +74,11 @@
               <span class="label-text-alt mt-2 text-error"> Password is required </span>
             </div>
           }
+          @if (registerFormGroup.get('password')?.hasError('minLength')) {
+            <div>
+              <span class="label-text-alt mt-2 text-error"> Password should have at least 6 characters </span>
+            </div>
+          }
         }
       </label>
 
@@ -85,6 +109,12 @@
     </form>
 
 
-    <button class="btn btn-primary" [disabled]="registerFormGroup.invalid">Create</button>
+    <button class="btn btn-primary" [disabled]="registerFormGroup.invalid || registerFormGroup.disabled" (click)="submitRegisterForm()">
+      @if (isLoading) {
+        <span class="loading"></span>
+      } @else {
+        Create
+      }
+    </button>
   </div>
 </main>
