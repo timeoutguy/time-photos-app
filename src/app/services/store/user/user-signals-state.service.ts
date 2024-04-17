@@ -1,0 +1,36 @@
+import { Injectable } from '@angular/core';
+import { SignalsStoreService } from '../signals-store.service';
+
+export interface IUser {
+  id: number
+  fullName: string
+  email: string
+  password: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface IToken {
+  type: string
+  name: any
+  token: string
+  abilities: string[]
+  lastUsedAt: any
+  expiresAt: string
+}
+
+
+export interface UserState {
+  user: IUser
+  token: IToken
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserSignalsStateService extends SignalsStoreService<UserState> {
+
+  constructor() {
+    super()
+  }
+}

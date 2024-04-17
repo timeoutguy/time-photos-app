@@ -3,7 +3,7 @@ import { Injectable, computed, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class SignalsStoreServiceService<T> {
+export class SignalsStoreService<T> {
   state = signal({} as T);
 
   constructor() {}
