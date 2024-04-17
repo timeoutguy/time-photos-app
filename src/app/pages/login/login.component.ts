@@ -43,6 +43,7 @@ export class LoginComponent {
     .subscribe({
       next: (result) => {
         this.userState.setState(result)
+        this.sessionService.setSessionStorage(result.user, result.token)
       },
       error: ({ error: { errors } }) => {
         errors.forEach(({ message }: any) => {
