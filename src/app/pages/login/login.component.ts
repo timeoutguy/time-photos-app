@@ -1,10 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { bootstrapGoogle } from '@ng-icons/bootstrap-icons';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { SessionService } from '../../services/session.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { take } from 'rxjs';
+import { UserSignalsStateService } from '../../services/store/user/user-signals-state.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +18,9 @@ import { take } from 'rxjs';
 })
 export class LoginComponent {
   private sessionService = inject(SessionService);
+  private userState = inject(UserSignalsStateService);
+  private toastrService = inject(ToastrService);
+  private router = inject(Router);
 
   public loginFormGroup: FormGroup = new FormGroup({
     email: new FormControl('marcus1@teste.com', [Validators.required]),
@@ -35,9 +40,18 @@ export class LoginComponent {
 
     this.sessionService.login(email, password)
     .pipe(take(1))
-    .subscribe(result => {
-      this.isLoading = false;
-      console.log(result);
-    })
+    .subscribe({
+      next: (result) => {
+        this.userState.setState(result)
+      },
+      error: ({ error: { errors } }) => {
+        errors.forEach(({ message }: any) => {
+          this.toastrService.error(message)
+        })
+      },
+      complete: () => {
+        this.router.navigate(['/']);
+      }
+    }).add(() => this.isLoading = false);
   }
 }
