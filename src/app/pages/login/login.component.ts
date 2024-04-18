@@ -7,6 +7,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { take } from 'rxjs';
 import { UserSignalsStateService } from '../../services/store/user/user-signals-state.service';
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent {
   private sessionService = inject(SessionService);
   private userState = inject(UserSignalsStateService);
   private toastrService = inject(ToastrService);
+  private cookieService = inject(CookieService);
   private router = inject(Router);
 
   public loginFormGroup: FormGroup = new FormGroup({
@@ -42,8 +44,8 @@ export class LoginComponent {
     .pipe(take(1))
     .subscribe({
       next: (result) => {
-        this.userState.setState(result)
-        this.sessionService.setSessionStorage(result.user, result.token)
+        this.userState.setState(result),
+        this.cookieService.set('token', result.token.token, 30)
       },
       error: ({ error: { errors } }) => {
         errors.forEach(({ message }: any) => {
