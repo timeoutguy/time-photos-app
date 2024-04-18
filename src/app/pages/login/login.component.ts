@@ -38,14 +38,14 @@ export class LoginComponent {
 
     this.isLoading = true;
 
-    const { email, password } = this.loginFormGroup.value;
+    const { email, password, rememberMe } = this.loginFormGroup.value;
 
-    this.sessionService.login(email, password)
+    this.sessionService.login(email, password, rememberMe)
     .pipe(take(1))
     .subscribe({
       next: (result) => {
         this.userState.setState(result),
-        this.cookieService.set('token', result.token.token, 30)
+        this.cookieService.set('token', result.token.token, rememberMe ? 30 : 1)
       },
       error: ({ error: { errors } }) => {
         errors.forEach(({ message }: any) => {
