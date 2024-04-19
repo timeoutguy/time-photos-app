@@ -10,7 +10,7 @@
   <div class="flex-none">
     @if (user()) {
       <div>
-        <button class="btn btn-ghost">
+        <button class="btn btn-ghost" routerLink="dashboard">
           <ng-icon name="octUpload" />
           Upload
         </button>
@@ -29,7 +29,7 @@
             </a>
           </li>
           <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
+          <li (click)="logout()"><a>Logout</a></li>
         </ul>
       </div>
     } @else {
