@@ -12,7 +12,6 @@ export interface IToken {
   token: string
 }
 
-
 export interface UserState {
   user: IUser
   token: IToken

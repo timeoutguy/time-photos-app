@@ -1,18 +1,18 @@
 <div class="card w-96 bg-base-100 shadow-xl">
   <div class="relative">
     <div class="absolute right-2 top-2 z-[1]">
-      <button class="tooltip btn btn-sm btn-accent btn-circle tooltip-right" data-tip="Copy URL">
+      <button (click)="copyUrlToClipboard()" class="tooltip btn btn-sm btn-accent btn-circle tooltip-right" data-tip="Copy URL">
         <ng-icon name="octCopy" />
       </button>
     </div>
     <figure>
-      <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" />
+      <img [src]="imageUrl" alt="Shoes" />
     </figure>
   </div>
   <div class="card-body">
     <h2 class="card-title flex justify-between">
       <div>
-        Shoes!
+        {{ image.name }}
         <div class="badge badge-secondary">NEW</div>
       </div>
       <div>

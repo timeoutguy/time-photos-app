@@ -4,6 +4,7 @@ import { octChevronDown } from '@ng-icons/octicons';
 import { ImageCardComponent } from '../../image-card/image-card.component';
 import { ImageService } from '../../services/image.service';
 import { UserSignalsStateService } from '../../services/store/user/user-signals-state.service';
+import { ImageSignalsStateServiceService } from '../../services/store/image/image-signals-state-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,10 +23,14 @@ export class DashboardComponent implements OnInit {
     this.searchInput.nativeElement.focus();
   }
 
-  private imageService = inject(ImageService);
-  private userState = inject(UserSignalsStateService);
+  readonly imageService = inject(ImageService);
+  readonly imageState = inject(ImageSignalsStateServiceService);
+
+  public images = this.imageState.select('images');
 
   ngOnInit(): void {
-    this.imageService.getImages().subscribe(result => console.log(result));
+    this.imageService.getImages().subscribe(result => {
+      this.imageState.set('images', result);
+    });
   }
 }

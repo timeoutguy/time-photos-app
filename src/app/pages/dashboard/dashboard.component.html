@@ -18,15 +18,8 @@
     </label>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-4">
-    <app-image-card />
-    <app-image-card />
-    <app-image-card />
-    <app-image-card />
-    <app-image-card />
-    <app-image-card />
-    <app-image-card />
-    <app-image-card />
-    <app-image-card />
-    <app-image-card />
+    @for (image of images(); track $index) {
+      <app-image-card [image]="image" />
+    }
   </div>
 </main>
