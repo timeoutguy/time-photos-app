@@ -22,4 +22,8 @@ export class SessionService extends BaseUrl {
   public login(email: string, password: string, rememberMe: boolean): Observable<UserState> {
     return this.httpClient.post<UserState>(`${this.apiUrl}/login`, { email, password, rememberMe })
   }
+
+  public logout(): Observable<unknown> {
+    return this.httpClient.post<unknown>(`${this.apiUrl}/logout`, {})
+  }
 }
