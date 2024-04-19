@@ -9,11 +9,7 @@ export interface IUser {
 
 export interface IToken {
   type: string
-  name: any
   token: string
-  abilities: string[]
-  lastUsedAt: any
-  expiresAt: string
 }
 
 
@@ -26,7 +22,6 @@ export interface UserState {
   providedIn: 'root'
 })
 export class UserSignalsStateService extends SignalsStoreService<UserState> {
-
   constructor() {
     super()
   }

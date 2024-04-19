@@ -1,4 +1,4 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, effect, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +35,9 @@ export class SignalsStoreService<T> {
    */
   public select<K extends keyof T>(key:K) {
     return computed(() => this.state()[key]);
+  }
+
+  public clear() {
+    this.state.update(() => ({} as T));
   }
 }
