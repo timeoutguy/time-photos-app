@@ -6,13 +6,13 @@ import { BaseUrl } from '../utils/base-url';
   providedIn: 'root'
 })
 export class ImageService extends BaseUrl {
-  private httpClinet = inject(HttpClient)
+  private httpClient = inject(HttpClient)
 
   constructor() {
     super();
   }
 
   public getImages() {
-    return this.httpClinet.get(`${this.apiUrl}/images`);
+    return this.httpClient.get(`${this.apiUrl}/images`);
   }
 }
