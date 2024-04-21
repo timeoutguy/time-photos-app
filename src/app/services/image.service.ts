@@ -21,4 +21,8 @@ export class ImageService extends BaseUrl {
   public deleteImage(id: number): Observable<any> {
     return this.httpClient.delete(`${this.apiUrl}/images/${id}`);
   }
+
+  public updateImage(id: number, data: FormData): Observable<IImage> {
+    return this.httpClient.patch<IImage>(`${this.apiUrl}/images/${id}`, data);
+  }
 }
