@@ -48,7 +48,8 @@ export class LoginComponent {
         this.cookieService.set('token', result.token.token, rememberMe ? 30 : 1)
       },
       error: ({ error: { errors } }) => {
-        errors.forEach(({ message }: any) => {
+        if(!errors) return this.toastrService.error('Erro ao realizar login')
+        return errors.forEach(({ message }: any) => {
           this.toastrService.error(message)
         })
       },

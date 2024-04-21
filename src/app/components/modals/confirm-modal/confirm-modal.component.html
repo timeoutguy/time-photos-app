@@ -1,0 +1,8 @@
+<h3 class="font-bold text-lg"> {{ title }} </h3>
+<p class="py-4"> {{ message }} </p>
+<div class="modal-action">
+  <form method="dialog">
+    <button class="btn mr-2">Close</button>
+    <button class="btn btn-error" (click)="confirm.emit(true)">Delete</button>
+  </form>
+</div>

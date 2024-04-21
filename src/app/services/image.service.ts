@@ -17,4 +17,8 @@ export class ImageService extends BaseUrl {
   public getImages(): Observable<IImage[]> {
     return this.httpClient.get<IImage[]>(`${this.apiUrl}/images`);
   }
+
+  public deleteImage(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.apiUrl}/images/${id}`);
+  }
 }
