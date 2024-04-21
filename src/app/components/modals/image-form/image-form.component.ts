@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { IImage } from '../../../services/store/image/image-signals-state-service.service';
+import { IImage, ImageSignalsStateServiceService } from '../../../services/store/image/image-signals-state-service.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ImageService } from '../../../services/image.service';
+import { take } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-image-form',
@@ -12,6 +14,8 @@ import { ImageService } from '../../../services/image.service';
 })
 export class ImageFormComponent implements OnInit {
   private readonly imageService = inject(ImageService);
+  private readonly imageState = inject(ImageSignalsStateServiceService);
+  private readonly toastrService = inject(ToastrService);
 
   @Input() image!: IImage;
 
@@ -48,8 +52,13 @@ export class ImageFormComponent implements OnInit {
 
     if(this.imageFile) data.append('image', this.imageFile!)
 
-    this.imageService.updateImage(this.image.id, data).subscribe(result => {
-      console.log(result);
+    this.imageService.updateImage(this.image.id, data)
+    .pipe(take(1))
+    .subscribe(result => {
+      const images = this.imageState.select('images')
+
+      this.imageState.setState({ images: images().map(image => image.id === this.image.id ? result : image)})
+      this.toastrService.success("Image updated successfully")
     })
   }
 
