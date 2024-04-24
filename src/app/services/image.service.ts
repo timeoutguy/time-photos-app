@@ -25,4 +25,8 @@ export class ImageService extends BaseUrl {
   public updateImage(id: number, data: FormData): Observable<IImage> {
     return this.httpClient.patch<IImage>(`${this.apiUrl}/images/${id}`, data);
   }
+
+  public createImage(data: FormData): Observable<IImage> {
+    return this.httpClient.post<IImage>(`${this.apiUrl}/images`, data);
+  }
 }

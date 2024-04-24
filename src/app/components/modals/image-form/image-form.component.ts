@@ -63,6 +63,18 @@ export class ImageFormComponent implements OnInit {
   }
 
   createImage() {
+    const data = new FormData()
+    data.append('name', this.imageFormGroup.get('name')!.value);
 
+    if(this.imageFile) data.append('image', this.imageFile);
+
+    this.imageService.createImage(data)
+    .pipe(take(1))
+    .subscribe(result => {
+      const stateImages = this.imageState.select('images')
+
+      this.imageState.setState({ images: stateImages().concat(result) })
+      this.toastrService.success("Image uploaded successfully")
+    })
   }
 }

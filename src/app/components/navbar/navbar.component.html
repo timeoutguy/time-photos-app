@@ -10,7 +10,7 @@
   <div class="flex-none">
     @if (user()) {
       <div>
-        <button class="btn btn-ghost" routerLink="dashboard">
+        <button (click)="openUploadModal()" class="btn btn-ghost">
           <ng-icon name="octUpload" />
           Upload
         </button>
@@ -28,7 +28,7 @@
               <span class="badge">New</span>
             </a>
           </li>
-          <li><a>Settings</a></li>
+          <li><a routerLink="dashboard">Dashboard</a></li>
           <li (click)="logout()"><a>Logout</a></li>
         </ul>
       </div>
@@ -40,3 +40,8 @@
     }
   </div>
 </div>
+<dialog #uploadModal class="modal">
+  <div class="modal-box">
+    <app-image-form />
+  </div>
+</dialog>
