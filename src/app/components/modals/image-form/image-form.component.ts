@@ -33,6 +33,7 @@ export class ImageFormComponent implements OnInit {
   ngOnInit(): void {
     if(this.image) {
       this.imageFormGroup.get('name')?.patchValue(this.image.name);
+      this.selectedCategories = this.categories().filter(category => this.image.categories.some(imageCategory => imageCategory.id === category.id))
     }
   }
 
@@ -56,6 +57,8 @@ export class ImageFormComponent implements OnInit {
     data.append('name', this.imageFormGroup.get('name')!.value);
 
     if(this.imageFile) data.append('image', this.imageFile!)
+
+    this.selectedCategories.forEach(category => data.append('categories[]', category.id))
 
     this.imageService.updateImage(this.image.id, data)
     .pipe(take(1))
