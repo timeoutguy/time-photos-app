@@ -1,15 +1,5 @@
 <main class="container mx-auto pt-12">
   <div class="flex w-full mx-auto mb-6">
-    <details class="dropdown mr-2">
-      <summary class="m-1 btn">
-        Filter
-        <ng-icon name="octChevronDown" />
-      </summary>
-      <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-        <li><a>Item 1</a></li>
-        <li><a>Item 2</a></li>
-      </ul>
-    </details>
     <label class="input input-bordered flex items-center gap-2 grow">
       <input type="text" class="grow" placeholder="Search" #searchInput (input)="filterImages($event)"/>
       <kbd class="kbd kbd-sm"> CTRL </kbd>
@@ -17,12 +7,24 @@
       <kbd class="kbd kbd-sm"> K </kbd>
     </label>
   </div>
-  <div class="flex justify-between gap-4">
+  <div class="flex gap-4">
     <ul class="menu bg-base-200 w-56 rounded-box">
       <li class="menu-title"> Categories </li>
-      <li><a>Item 1</a></li>
-      <li><a>Item 2</a></li>
-      <li><a>Item 3</a></li>
+      @for (category of categories(); track $index) {
+        <li>
+          <a class="flex justify-between">
+            {{ category.name }}
+            <div class="relative z-[1]">
+              <button class="btn btn-xs btn-primary btn-circle mr-1">
+                <ng-icon name="octPencil" size="12" />
+              </button>
+              <button class="btn btn-xs btn-error btn-circle">
+                <ng-icon name="octTrash" size="12" />
+              </button>
+            </div>
+          </a>
+        </li>
+      }
       <li>
         <a class="font-bold">
           <ng-icon name="octPlusCircle" />
