@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ImageService } from '../../../services/image.service';
 import { take } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { CategoriesStateService, ICategory } from '../../../services/store/categories/categories-state.service';
 
 @Component({
   selector: 'app-image-form',
@@ -16,6 +17,7 @@ export class ImageFormComponent implements OnInit {
   private readonly imageService = inject(ImageService);
   private readonly imageState = inject(ImageSignalsStateServiceService);
   private readonly toastrService = inject(ToastrService);
+  readonly categoriesState = inject(CategoriesStateService);
 
   @Input() image!: IImage;
 
@@ -24,6 +26,9 @@ export class ImageFormComponent implements OnInit {
   public imageFormGroup = new FormGroup({
     name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(3), Validators.maxLength(255)]}),
   });
+
+  public categories = this.categoriesState.select('categories');
+  public selectedCategories: ICategory[] = [];
 
   ngOnInit(): void {
     if(this.image) {
@@ -65,8 +70,8 @@ export class ImageFormComponent implements OnInit {
   createImage() {
     const data = new FormData()
     data.append('name', this.imageFormGroup.get('name')!.value);
-    data.append('teste', "lorem ipsum dolor sit amet");
 
+    this.selectedCategories.forEach(category => data.append('categories[]', category.id))
 
     if(this.imageFile) data.append('image', this.imageFile);
 
@@ -78,5 +83,19 @@ export class ImageFormComponent implements OnInit {
       this.imageState.setState({ images: stateImages().concat(result) })
       this.toastrService.success("Image uploaded successfully")
     })
+  }
+
+  toggleCategory(id: string) {
+    if(this.selectedCategories.some(category => category.id === id)) {
+      this.selectedCategories = this.selectedCategories.filter(category => category.id !== id)
+      return;
+    }
+
+    this.selectedCategories.push(this.categoriesState.select('categories')().find(category => category.id === id)!)
+    return;
+  }
+
+  isCategorySelected(id: string) {
+    return this.selectedCategories.some(category => category.id === id)
   }
 }

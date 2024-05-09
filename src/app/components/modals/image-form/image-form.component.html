@@ -4,10 +4,21 @@
     <div class="label">
       <span class="label-text">Name</span>
     </div>
-
     <input formControlName="name" class="input input-bordered" />
   </label>
   <input type="file" class="file-input file-input-bordered w-full max-w-xs" (change)="onFileChange($event)" />
+  <label for="form-control mb-4">
+    <div class="label">
+      <span class="label-text">Category</span>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      @for (category of categories(); track $index) {
+        <div (click)="toggleCategory(category.id)" class="btn btn-xs" [class.btn-primary]="isCategorySelected(category.id)" [class.btn-outline]="!isCategorySelected(category.id)">
+          {{ category.name }}
+        </div>
+      }
+    </div>
+  </label>
 </form>
 <div class="modal-action">
   <form method="dialog">
