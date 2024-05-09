@@ -65,6 +65,8 @@ export class ImageFormComponent implements OnInit {
   createImage() {
     const data = new FormData()
     data.append('name', this.imageFormGroup.get('name')!.value);
+    data.append('teste', "lorem ipsum dolor sit amet");
+
 
     if(this.imageFile) data.append('image', this.imageFile);
 

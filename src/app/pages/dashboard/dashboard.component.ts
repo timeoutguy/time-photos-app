@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { octChevronDown } from '@ng-icons/octicons';
+import { octChevronDown, octPlusCircle } from '@ng-icons/octicons';
 import { ImageCardComponent } from '../../image-card/image-card.component';
 import { ImageService } from '../../services/image.service';
 import { UserSignalsStateService } from '../../services/store/user/user-signals-state.service';
@@ -12,7 +12,7 @@ import { IImage, ImageSignalsStateServiceService } from '../../services/store/im
   imports: [NgIcon, ImageCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  providers: [provideIcons({ octChevronDown})]
+  providers: [provideIcons({ octChevronDown, octPlusCircle })]
 })
 export class DashboardComponent implements OnInit {
   @ViewChild("searchInput") searchInput!: ElementRef;

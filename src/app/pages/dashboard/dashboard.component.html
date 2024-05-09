@@ -17,9 +17,23 @@
       <kbd class="kbd kbd-sm"> K </kbd>
     </label>
   </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-4">
-    @for (image of filteredImages; track $index) {
-      <app-image-card [image]="image" />
-    }
+  <div class="flex justify-between gap-4">
+    <ul class="menu bg-base-200 w-56 rounded-box">
+      <li class="menu-title"> Categories </li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 3</a></li>
+      <li>
+        <a class="font-bold">
+          <ng-icon name="octPlusCircle" />
+          New
+        </a>
+      </li>
+    </ul>
+    <div class="flex flex-wrap gap-x-8 gap-y-4">
+      @for (image of filteredImages; track $index) {
+        <app-image-card [image]="image" />
+      }
+    </div>
   </div>
 </main>
