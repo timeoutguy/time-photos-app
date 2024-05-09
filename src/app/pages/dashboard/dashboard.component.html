@@ -7,21 +7,13 @@
       <kbd class="kbd kbd-sm"> K </kbd>
     </label>
   </div>
-  <div class="flex gap-4">
-    <ul class="menu bg-base-200 w-56 rounded-box">
+  <div class="flex gap-4 items-start">
+    <ul class="menu bg-base-200 min-w-56 rounded-box sticky top-4">
       <li class="menu-title"> Categories </li>
       @for (category of categories(); track $index) {
-        <li>
-          <a class="flex justify-between">
+        <li class="mb-2" (click)="toggleCategoriesFilter(category.id)">
+          <a class="flex justify-between" [class.active]="categoriesFilter.includes(category.id)">
             {{ category.name }}
-            <div class="relative z-[1]">
-              <button class="btn btn-xs btn-primary btn-circle mr-1">
-                <ng-icon name="octPencil" size="12" />
-              </button>
-              <button class="btn btn-xs btn-error btn-circle">
-                <ng-icon name="octTrash" size="12" />
-              </button>
-            </div>
           </a>
         </li>
       }

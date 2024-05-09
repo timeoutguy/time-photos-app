@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
 
   public images = this.imageState.select('images');
   public categories = this.categoriesState.select('categories');
+  public categoriesFilter: string[] = [];
   private filter: string = '';
 
   ngOnInit(): void {
@@ -49,8 +50,31 @@ export class DashboardComponent implements OnInit {
     this.filter = (event.target as HTMLInputElement).value.toLowerCase();
   }
 
+  public toggleCategoriesFilter(categoryId: string) {
+    if(this.categoriesFilter.includes(categoryId)) {
+      this.categoriesFilter = this.categoriesFilter.filter(c => c !== categoryId);
+    } else {
+      this.categoriesFilter.push(categoryId);
+    }
+  }
+
+  /**
+   * Gets the filtered images based on the filter and categories filter.
+   * If a filter is provided, it filters the images by their name and categories.
+   * If no filter is provided, it returns all the images.
+   * @returns An array of filtered images.
+   */
   get filteredImages() {
-    if(this.filter) return this.images().filter(image => image.name.toLowerCase().includes(this.filter))
+    if(this.filter) {
+      return this.images().filter(image =>
+        image.name.toLowerCase().includes(this.filter) &&
+        (this.categoriesFilter.length === 0 || image.categories.some(c => this.categoriesFilter.includes(c.id))));
+    }
+
+    if (this.categoriesFilter.length > 0) {
+      return this.images().filter(image => image.categories.some(c => this.categoriesFilter.includes(c.id)));
+    }
+
     return this.images();
   }
 }
