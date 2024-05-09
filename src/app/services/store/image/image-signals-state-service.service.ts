@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SignalsStoreService } from '../signals-store.service';
+import { ICategory } from '../categories/categories-state.service';
 
 export interface ImageState {
   images: IImage[]
@@ -13,6 +14,7 @@ export interface IImage {
   createdAt: string
   updatedAt: string
   url: string
+  categories: ICategory[];
 }
 
 @Injectable({

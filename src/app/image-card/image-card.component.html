@@ -13,7 +13,6 @@
     <h2 class="card-title flex justify-between">
       <div>
         {{ image.name }}
-        <div class="badge badge-secondary">NEW</div>
       </div>
       <div>
         <button class="btn btn-sm btn-circle btn-primary mr-2" (click)="openEditModal()">
@@ -24,6 +23,13 @@
         </button>
       </div>
     </h2>
+    <div class="card-actions">
+      @for (category of image.categories; track $index) {
+        <div class="badge badge-outline">
+          {{ category.name }}
+        </div>
+      }
+    </div>
   </div>
   <dialog #editModal class="modal">
     <div class="modal-box">
